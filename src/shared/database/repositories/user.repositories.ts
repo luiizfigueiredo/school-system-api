@@ -19,4 +19,12 @@ export class UserRepository {
             where: { email },
         });
     }
+
+    async findAll(): Promise<User[]> {
+        return this.prismaService.user.findMany({
+            orderBy: {
+                createdAt: 'desc',
+            },
+        });
+    }
 }
