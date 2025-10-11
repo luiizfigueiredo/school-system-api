@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { UserRepository } from 'src/shared/database/repositories/user.repositories';
 import { SignupUserDTO } from './dto/signup.dto';
 import { JwtService } from '@nestjs/jwt';
+import { BaseError } from 'src/shared/error/base-error';
+import { authError } from 'src/shared/error/messages/auth.error';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +19,7 @@ export class AuthService {
             const emailTaken = await this.userRepository.findByEmail(email);
 
             if (emailTaken) {
-                throw new Error("Email already in use");
+                throw new BaseError(authError.AUTH_002);
             }
 
             const user = await this.userRepository.create({
@@ -34,9 +36,8 @@ export class AuthService {
 
         } catch (error) {
             console.error("Error creating user:", error);
-            throw error;
-        }
-        
+            throw error
+        } 
     }
 
     private genetateToken(userId: string) {
