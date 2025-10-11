@@ -9,17 +9,9 @@ export class AuthResolver {
 
   @Mutation(() => AuthResponse)
   async signup(@Args('input') input: SignupInput): Promise<AuthResponse> {
-    try {
-      await this.authService.createUser(input);
-      return {
-        message: 'User created successfully',
-        success: true,
-      };
-    } catch (error) {
-      return {
-        message: error.message || 'Error creating user',
-        success: false,
-      };
-    }
+    const { accessToken } = await this.authService.createUser(input);
+    return {
+      accessToken
+    }; 
   }
 }

@@ -3,8 +3,7 @@
 # ------------------------------------------------------
 
 type AuthResponse {
-  message: String!
-  success: Boolean!
+  accessToken: String!
 }
 
 type User {
