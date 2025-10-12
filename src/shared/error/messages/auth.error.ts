@@ -9,4 +9,9 @@ export const authError = {
         message: 'Email already exists.',
         status: 409,
     },
+    AUTH_003: {
+        code: 'AUTH_003',
+        message: 'Failed to create user.',
+        status: 500,
+    },
 }
