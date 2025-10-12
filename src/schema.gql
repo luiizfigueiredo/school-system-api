@@ -30,5 +30,4 @@ type Mutation {
 input SignupInput {
   name: String!
   email: String!
-  password: String!
 }

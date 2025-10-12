@@ -14,19 +14,9 @@ import { GraphQLExceptionFilter } from './shared/filters/graphql-exception.filte
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       formatError: (error) => {
-        const originalError = error.extensions?.originalError as any;
-
-        if (!originalError) {
-          return {
-            message: error.message,
-            statusCode: error.extensions?.statusCode || 500,
-            error: error.extensions?.code || 'INTERNAL_SERVER_ERROR',
-          };
-        }
-
         return {
-          message: originalError.message,
-          statusCode: originalError.extensions?.statusCode || 500,
+          message: error.message,
+          statusCode: error.extensions?.statusCode || 500,
           error: error.extensions?.code || 'INTERNAL_SERVER_ERROR',
         };
       },

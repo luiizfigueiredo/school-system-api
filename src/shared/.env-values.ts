@@ -6,4 +6,5 @@ export const envValues = {
     POSTGRES_DB: process.env.POSTGRES_DB,
     DATABASE_URL: process.env.DATABASE_URL,
     JWT_SECRET: process.env.JWT_SECRET || 'default_secret_key',
+    DEFAULT_PASSWORD: process.env.DEFAULT_PASSWORD || 'default_password',
 }

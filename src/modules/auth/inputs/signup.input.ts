@@ -12,9 +12,4 @@ export class SignupInput {
   @IsEmail()
   @IsNotEmpty()
   email: string;
-
-  @Field()
-  @IsString()
-  @IsNotEmpty()
-  password: string;
 }
