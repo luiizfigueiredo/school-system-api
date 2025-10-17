@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthResolver } from './auth.resolver';
-import { UserRepository } from 'src/shared/database/repositories/user.repositories';
+import { UserRepository } from 'src/shared/database/repositories/user.repository';
 import { JwtModule } from '@nestjs/jwt';
 import { UsersModule } from '../users/users.module';
 import { envValues } from 'src/shared/.env-values';

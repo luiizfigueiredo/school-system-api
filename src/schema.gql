@@ -39,6 +39,19 @@ type Mutation {
 input SignupInput {
   name: String!
   email: String!
+  cpf: String!
+  rg: String!
+  phone: String!
+  address: String!
+  cep: String!
+  birthDate: DateTime!
+  userType: UserType!
+}
+
+"""The type of user in the system"""
+enum UserType {
+  STUDENT
+  INSTRUCTOR
 }
 
 input SigninInput {

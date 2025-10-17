@@ -18,8 +18,45 @@ model User {
   name      String
   email     String   @unique
   password  String
-  active    Boolean
-  createdAt DateTime
+  cpf       String   @unique
+  rg        String   @unique
+  phone     String
+  address   String
+  cep       String
+  birthDate DateTime @map("birth_date")
+  active    Boolean  @default(true)
+  createdAt DateTime @map("created_at")
+  userType  UserType @map("user_type")
 
-  @@map("users")
+  student    Student?
+  instructor Instructor?
+
+  @@map("user")
+}
+
+enum UserType {
+  STUDENT
+  INSTRUCTOR
+
+  @@map("user_type")
+}
+
+model Instructor {
+  id        String @id @default(uuid()) @db.Uuid
+  userId    String @unique @map("user_id") @db.Uuid
+  formation String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("instructor")
+}
+
+model Student {
+  id        String @id @default(uuid()) @db.Uuid
+  userId    String @unique @map("user_id") @db.Uuid
+  studentId String @unique @map("student_id")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("student")
 }
