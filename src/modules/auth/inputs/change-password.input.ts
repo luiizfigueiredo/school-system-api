@@ -5,10 +5,6 @@ import { IsNotEmpty, IsString, Length } from 'class-validator';
 export class ChangePasswordInput {
   @Field()
   @IsNotEmpty()
-  userId: string;
-
-  @Field()
-  @IsNotEmpty()
   @IsString()
   @Length(4, 16)
   newPassword: string;

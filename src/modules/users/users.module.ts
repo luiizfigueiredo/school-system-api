@@ -4,6 +4,6 @@ import { UsersResolver } from './users.resolver';
 
 @Module({
   providers: [UsersService, UsersResolver],
-  controllers: []
+  controllers: [],
 })
 export class UsersModule {}

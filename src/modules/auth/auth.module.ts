@@ -4,6 +4,8 @@ import { AuthResolver } from './auth.resolver';
 import { JwtModule } from '@nestjs/jwt';
 import { UsersModule } from '../users/users.module';
 import { envValues } from 'src/shared/env-values';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -14,7 +16,14 @@ import { envValues } from 'src/shared/env-values';
       signOptions: { expiresIn: '3d' },
     }),
   ],
-  providers: [AuthService, AuthResolver],
+  providers: [
+    AuthService,
+    AuthResolver,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
   controllers: [],
 })
 export class AuthModule {}
