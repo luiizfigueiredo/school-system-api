@@ -7,11 +7,18 @@ import { SigninInput } from './inputs/signin.input';
 import { SignupResponse } from './models/signup-response.model';
 import { ChangePasswordInput } from './inputs/change-password.input';
 import { ChangePasswordResponse } from './models/change-password.model';
+import { Public } from './decorators/public.decorator';
+import { CurrentUser } from './decorators/current-user.decorator';
+
+interface JwtPayload {
+  sub: string;
+}
 
 @Resolver()
 export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 
+  @Public()
   @Mutation(() => SignupResponse)
   async signup(@Args('input') input: SignupInput): Promise<SignupResponse> {
     try {
@@ -21,6 +28,7 @@ export class AuthResolver {
     }
   }
 
+  @Public()
   @Mutation(() => SigninResponse)
   async signin(@Args('input') input: SigninInput): Promise<SigninResponse> {
     try {
@@ -32,13 +40,11 @@ export class AuthResolver {
 
   @Mutation(() => ChangePasswordResponse)
   async changePassword(
+    @CurrentUser() user: JwtPayload,
     @Args('input') input: ChangePasswordInput,
   ): Promise<ChangePasswordResponse> {
     try {
-      return await this.authService.changePassword(
-        input.userId,
-        input.newPassword,
-      );
+      return await this.authService.changePassword(user.sub, input.newPassword);
     } catch (error) {
       throw new BaseError(error);
     }
