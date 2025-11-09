@@ -5,6 +5,8 @@ import { SignupInput } from './inputs/signup.input';
 import { BaseError } from 'src/shared/error/base-error';
 import { SigninInput } from './inputs/signin.input';
 import { SignupResponse } from './models/signup-response.model';
+import { ChangePasswordInput } from './inputs/change-password.input';
+import { ChangePasswordResponse } from './models/change-password.model';
 
 @Resolver()
 export class AuthResolver {
@@ -23,6 +25,20 @@ export class AuthResolver {
   async signin(@Args('input') input: SigninInput): Promise<SigninResponse> {
     try {
       return await this.authService.signin(input);
+    } catch (error) {
+      throw new BaseError(error);
+    }
+  }
+
+  @Mutation(() => ChangePasswordResponse)
+  async changePassword(
+    @Args('input') input: ChangePasswordInput,
+  ): Promise<ChangePasswordResponse> {
+    try {
+      return await this.authService.changePassword(
+        input.userId,
+        input.newPassword,
+      );
     } catch (error) {
       throw new BaseError(error);
     }

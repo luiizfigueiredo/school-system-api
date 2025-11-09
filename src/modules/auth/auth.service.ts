@@ -59,7 +59,7 @@ export class AuthService {
           await prisma.instructor.create({
             data: {
               userId: user.id,
-              formation: '', // Você pode adicionar isso como campo opcional no SignupInput se necessário
+              formation: '',
             },
           });
         }
@@ -105,6 +105,28 @@ export class AuthService {
       return { accessToken };
     } catch (error) {
       console.error('Error creating user:', error);
+      throw error;
+    }
+  }
+
+  async changePassword(userId: string, newPassword: string) {
+    try {
+      const user = await this.userRepository.findById(userId);
+
+      if (!user) {
+        throw new BaseError(authError.AUTH_004);
+      }
+
+      const hashedNewPassword = await hash(newPassword, 12);
+
+      await this.userRepository.updatePassword(userId, hashedNewPassword);
+
+      return {
+        success: true,
+        message: 'Password changed successfully.',
+      };
+    } catch (error) {
+      console.error('Error changing password:', error);
       throw error;
     }
   }

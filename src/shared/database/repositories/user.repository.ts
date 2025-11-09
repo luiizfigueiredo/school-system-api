@@ -12,6 +12,12 @@ export class UserRepository {
     });
   }
 
+  async findById(id: string): Promise<User | null> {
+    return this.prismaService.user.findUnique({
+      where: { id },
+    });
+  }
+
   async findByEmail(email: string): Promise<User | null> {
     return this.prismaService.user.findUnique({
       where: { email },
@@ -23,6 +29,13 @@ export class UserRepository {
       orderBy: {
         createdAt: 'desc',
       },
+    });
+  }
+
+  async updatePassword(id: string, hashedPassword: string): Promise<User> {
+    return this.prismaService.user.update({
+      where: { id },
+      data: { password: hashedPassword },
     });
   }
 }
