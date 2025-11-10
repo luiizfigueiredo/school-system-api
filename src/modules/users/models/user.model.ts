@@ -12,6 +12,24 @@ export class User {
   email: string;
 
   @Field()
+  cpf: string;
+
+  @Field()
+  rg: string;
+
+  @Field()
+  phone: string;
+
+  @Field()
+  address: string;
+
+  @Field()
+  cep: string;
+
+  @Field()
+  birthDate: Date;
+
+  @Field()
   active: boolean;
 
   @Field()

@@ -28,12 +28,19 @@ type User {
   id: ID!
   name: String!
   email: String!
+  cpf: String!
+  rg: String!
+  phone: String!
+  address: String!
+  cep: String!
+  birthDate: DateTime!
   active: Boolean!
   createdAt: DateTime!
 }
 
 type Query {
   users: [User!]!
+  me: User!
 }
 
 type Mutation {
