@@ -1,18 +1,17 @@
-import { Resolver, Query, Args } from '@nestjs/graphql';
+import { Resolver, Query } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './models/user.model';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @Resolver(() => User)
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
+  @UseGuards(AuthGuard)
   @Query(() => [User], { name: 'users' })
   async findAll(): Promise<User[]> {
     return this.usersService.findAll();
   }
 
-  // @Query(() => User, { name: 'userByEmail', nullable: true })
-  // async findByEmail(@Args('email') email: string): Promise<User | null> {
-  //   return this.usersService.findByEmail(email);
-  // }
 }

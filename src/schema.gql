@@ -39,7 +39,7 @@ type Query {
 type Mutation {
   signup(input: SignupInput!): SignupResponse!
   signin(input: SigninInput!): SigninResponse!
-  changePassword(input: ChangePasswordInput!): ChangePasswordResponse!
+  changePassword(newPassword: String!): ChangePasswordResponse!
 }
 
 input SignupInput {
@@ -63,9 +63,4 @@ enum UserType {
 input SigninInput {
   email: String!
   password: String!
-}
-
-input ChangePasswordInput {
-  userId: String!
-  newPassword: String!
 }
